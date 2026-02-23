@@ -26,7 +26,9 @@ import BrowserOnly from "@docusaurus/BrowserOnly";
         const MonacoEditor = require("@site/src/components/MonacoEditor").default;
         return (
             <ExhibitionExample>
+                <h4>HTML</h4>
                 <MonacoEditor contentUrl="/examples/custom-editors-init-1/html.htm" language="html" />
+                <h4>TypeScript</h4>
                 <MonacoEditor contentUrl="/examples/custom-editors-init-1/typescript.txt" language="typescript" />
             </ExhibitionExample>
         );
@@ -43,7 +45,9 @@ Alternatively, editors can be initialized manually.
         const MonacoEditor = require("@site/src/components/MonacoEditor").default;
         return (
             <ExhibitionExample>
+                <h4>HTML</h4>
                 <MonacoEditor contentUrl="/examples/custom-editors-init-2/html.htm" language="html" />
+                <h4>TypeScript</h4>
                 <MonacoEditor contentUrl="/examples/custom-editors-init-2/typescript.txt" language="typescript" />
             </ExhibitionExample>
         );
