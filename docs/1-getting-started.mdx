@@ -1,0 +1,117 @@
+---
+id: getting-started
+title: Getting started
+slug: /getting-started
+sidebar_position: 1
+---
+
+To use `exhibitionjs`, you need to set up your HTML structure and then initialize the `Exhibition` class.
+
+## Installation
+
+### Bundle everything:
+
+```bash
+npm install exhibitionjs monaco-editor @monaco-editor/loader
+```
+
+```javascript
+// Using specific versions is recommended.
+import { Exhibition } from "exhibitionjs";
+import loader from '@monaco-editor/loader'
+import * as monaco from 'monaco-editor';
+
+loader.config({ monaco });
+await loader.init();
+
+// ...
+```
+
+### Loading `monaco-editor` from CDN
+
+```bash
+npm install exhibitionjs @monaco-editor/loader
+```
+
+```javascript
+// Using specific versions is recommended.
+import { Exhibition } from "exhibitionjs";
+import loader from '@monaco-editor/loader'
+
+// If you want to use the monaco-editor from a CDN.
+loader.config({
+  paths: {
+    vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/'
+  },
+});
+
+const monaco = await loader.init();
+
+// ...
+```
+
+### No bundling. Loading everything from CDN
+
+```javascript
+// Using specific versions is recommended.
+import { Exhibition } from "https://cdn.jsdelivr.net/npm/exhibitionjs@latest/dist/+esm";
+import loader from 'https://cdn.jsdelivr.net/npm/@monaco-editor/loader@latest/+esm'
+
+// If you want to use the monaco-editor from a CDN.
+loader.config({
+  paths: {
+    vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@latest/min/vs/'
+  },
+});
+
+const monaco = await loader.init();
+
+```
+
+## Usage
+
+Basic HTML structure:
+
+```html
+<div data-js-exhibition>
+  <div data-js-exhibition-editor data-js-options='{"monacoOptions": {"language": "html"}}'></div>
+  <button data-js-exhibition-updater>Update</button>
+  <iframe data-js-exhibition-preview></iframe>
+</div>
+```
+
+Now that we have `monaco` module available, we can do:
+
+```javascript
+// ...
+
+const monaco = await loader.init();
+
+const defaultMonacoOptions = {
+  value: "",
+  minimap: {
+    enabled: false,
+  },
+  scrollBeyondLastLine: false,
+  automaticLayout: true,
+};
+
+Exhibition.createMultiple(document.body,
+  Exhibition.getMap({
+    configuration: {
+      editors: {
+        options: {
+          monacoEditorOptions: defaultMonacoOptions,
+          monaco: monaco,
+        }
+      }
+    },
+  }),
+);
+```
+
+It will find proper elements in the document's body and will instantiate Exhibitions and their
+dependencies based on them.
+
+Explore live examples created by this very library [here](/docs/category/examples).
+

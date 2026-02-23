@@ -1,0 +1,64 @@
+/*
+ *  This is JavaScript that will be appended to the DOM of the Preview.
+ *  It supports TypeScript: its content is being transpiled to JavaScript before Preview is created.
+ */
+
+import loader from "{{MONACO_LOADER_URL}}";
+import { Exhibition } from "{{EXHIBITIONJS_URL_ESM}}";
+
+loader.config({
+  paths: {
+    vs: '{{MONACO_VS_URL}}'
+  },
+});
+
+const monaco = await loader.init();
+
+/*
+ * Default options for the "monaco-editor" instance.
+ * These values will be overwritten by the "monacoOptions" in the "data-js-options" attribute.
+ * For all available options see monaco-editor's documentation.
+ */
+
+const defaultMonacoOptions = {
+  value: "",
+  minimap: {
+    enabled: false,
+  },
+  scrollBeyondLastLine: false,
+  automaticLayout: true,
+};
+
+/*
+ * Now we instantiate our exhibitions based on the attributes in the HTML structure.
+ * The default selector of the ExhivitionJS elements is "[data-js-exhibition]".
+ * In the given HTML there is only one "data-js-exhibition" so only a single instance will be created.
+ */
+Exhibition.createMultiple(document.body,
+  /*
+   * "Exhibition.getMap" provides ExhibitionJS instances with a default dependency map.
+   * Based on these dependencies, the Preview element and the editors will be instantiated.
+   * Dependency map tells ExhibitionJS which subelements should be wrapped with what to serve these purposes.
+   *
+   * The map can be altered if, for example, it's preferable to use a custom editor implementation, however
+   * a new editor class should implement the "DocumentAltererWraplet" interface to work correctly with the
+   * library. For this purpose it's recommended to rather use the `Exhibition.getCustomizedMap` method.
+   */
+  Exhibition.getMap({
+    configuration: {
+      editors: {
+        options: {
+          monacoEditorOptions: defaultMonacoOptions,
+          monaco: monaco,
+        }
+      }
+    },
+  }),
+);
+
+/*
+ * In this example what happened is that on "Exhibition.createMultiple" ExhibitionJS library found an element with the
+ * "data-js-exhibition" attribute in the document's HTML and wrapped it with an Exhibition instance.
+ * Then, based on the provided dependency map, important elements were found among the exhibition element descendants
+ * (preview, editors, etc.) and proper dependencies have been instantiated.
+ */

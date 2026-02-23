@@ -1,0 +1,28 @@
+---
+id: example-custom-attributes
+title: Custom tag attributes
+slug: /examples/custom-attributes
+sidebar_position: 4
+---
+
+This example shows how to set custom attributes on the generated tags.
+For example, you might want your script tag to have `type="module"`.
+
+## Live demo
+
+import BrowserOnly from "@docusaurus/BrowserOnly";
+
+<BrowserOnly>
+    {() => {
+        const ExhibitionExample = require("@site/src/components/ExhibitionExample").default;
+        const MonacoEditor = require("@site/src/components/MonacoEditor").default;
+        return (
+            <ExhibitionExample>
+                #### HTML
+                <MonacoEditor contentUrl="/examples/custom-attributes/html.htm" language="html" />
+                #### TypeScript
+                <MonacoEditor contentUrl="/examples/custom-attributes/typescript.txt" language="typescript" />
+            </ExhibitionExample>
+        );
+    }}
+</BrowserOnly>

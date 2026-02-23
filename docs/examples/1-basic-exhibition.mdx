@@ -1,0 +1,49 @@
+---
+id: example-basic
+title: Basic exhibition
+slug: /examples/basic
+sidebar_position: 1
+---
+
+This example shows the minimal setup: an HTML, a CSS, and a TypeScript editor, an "Update" button,
+and a preview iframe. The HTML builds the initial structure, CSS styles it, and TypeScript
+manipulates the DOM.
+
+## Live demo
+
+import BrowserOnly from "@docusaurus/BrowserOnly";
+
+### When loading Monaco Editor with the `@monaco-editor/loader` helper package.
+
+<BrowserOnly>
+    {() => {
+        const ExhibitionExample = require("@site/src/components/ExhibitionExample").default;
+        const MonacoEditor = require("@site/src/components/MonacoEditor").default;
+        return (
+            <ExhibitionExample>
+                #### HTML
+                <MonacoEditor contentUrl="/examples/basics/html.htm" language="html" />
+                #### TypeScript
+                <MonacoEditor contentUrl="/examples/basics/typescript.txt" language="typescript" />
+            </ExhibitionExample>
+        );
+    }}
+</BrowserOnly>
+
+
+### When loading Monaco Editor with the built-in loader
+
+<BrowserOnly>
+    {() => {
+        const ExhibitionExample = require("@site/src/components/ExhibitionExample").default;
+        const MonacoEditor = require("@site/src/components/MonacoEditor").default;
+        return (
+            <ExhibitionExample>
+                #### HTML
+                <MonacoEditor contentUrl="/examples/monaco-default-loader/html.htm" language="html" />
+                #### TypeScript
+                <MonacoEditor contentUrl="/examples/monaco-default-loader/typescript.txt" language="typescript" />
+            </ExhibitionExample>
+        );
+    }}
+</BrowserOnly>

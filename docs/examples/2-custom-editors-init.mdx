@@ -1,0 +1,51 @@
+---
+id: example-custom-editors-init
+title: Custom editors initialization
+slug: /examples/custom-editors-init
+sidebar_position: 2
+---
+
+These examples show how to initialize editors in a custom way and feed them with default values
+from arbitrary sources. Note that these examples were chosen to be self-contained, not perfect.
+In reality, you cannot reliably store arbitrary HTML in an existing HTML file. For example, the
+`</script>` string will break storage method shown here. To be able to use a truly arbitrary HTML,
+the best is to fetch it from a remote source.
+
+## Live demos
+
+### Custom editor creator
+
+Here we are using a custom editor creator to customize initialized editors. Additionally, we pull default
+values from other elements.
+
+import BrowserOnly from "@docusaurus/BrowserOnly";
+
+<BrowserOnly>
+    {() => {
+        const ExhibitionExample = require("@site/src/components/ExhibitionExample").default;
+        const MonacoEditor = require("@site/src/components/MonacoEditor").default;
+        return (
+            <ExhibitionExample>
+                <MonacoEditor contentUrl="/examples/custom-editors-init-1/html.htm" language="html" />
+                <MonacoEditor contentUrl="/examples/custom-editors-init-1/typescript.txt" language="typescript" />
+            </ExhibitionExample>
+        );
+    }}
+</BrowserOnly>
+
+### Intiantiating editors manually
+
+Alternatively, editors can be initialized manually.
+
+<BrowserOnly>
+    {() => {
+        const ExhibitionExample = require("@site/src/components/ExhibitionExample").default;
+        const MonacoEditor = require("@site/src/components/MonacoEditor").default;
+        return (
+            <ExhibitionExample>
+                <MonacoEditor contentUrl="/examples/custom-editors-init-2/html.htm" language="html" />
+                <MonacoEditor contentUrl="/examples/custom-editors-init-2/typescript.txt" language="typescript" />
+            </ExhibitionExample>
+        );
+    }}
+</BrowserOnly>

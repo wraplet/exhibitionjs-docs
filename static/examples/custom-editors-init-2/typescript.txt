@@ -1,0 +1,65 @@
+import loader from "{{MONACO_LOADER_URL}}";
+import { Exhibition, ExhibitionMonacoEditor, type ExhibitionMonacoEditorOptions } from "{{EXHIBITIONJS_URL_ESM}}";
+
+loader.config({
+  paths: {
+    vs: '{{MONACO_VS_URL}}'
+  },
+});
+
+const monaco = await loader.init();
+
+const defaultMonacoEditorOptions: ExhibitionMonacoEditorOptions["monacoEditorOptions"] = {
+    value: "",
+    minimap: {
+        enabled: false,
+    },
+    scrollBeyondLastLine: false,
+    automaticLayout: true,
+};
+
+const exhibitions = await Exhibition.createMultiple(document.body,
+    Exhibition.getMap(
+        {
+            // Don't select editors automatically because we want to customize their initialization.
+            // Another way of achieving this would be to modify the map by removing the "selector" property.
+            // This is just a handy shortcut through the map options that simplify some common use cases.
+            deferEditors: true,
+        },
+    ),
+    {},
+    {
+        // Because we won't have editors available at the start, there is nothing to init.
+        init: false,
+    },
+);
+
+for (const exhibition of exhibitions) {
+    /*
+     * Initialize editors manually, so we can pull the default values.
+     * First, find all editors among the descendants of the Exhibition-wrapped element.
+     * We can access the wrapped element through the Wraplet API's "accessNode" method.
+    */
+    exhibition.wraplet.accessNode(async (node) => {
+        const editorsElements = node.querySelectorAll<HTMLElement>("[data-js-exhibition-editor]");
+        for (const editorElement of editorsElements) {
+            const value = { value: "" };
+            // Pull the default value from the referenced element.
+            const valueSelector = editorElement.getAttribute("data-js-value-selector");
+            const valueElement = document.querySelector<HTMLScriptElement>(valueSelector);
+            value.value = valueElement.textContent;
+
+            const editor = ExhibitionMonacoEditor.create(editorElement, { monacoEditorOptions: { ...defaultMonacoEditorOptions, ...value }, monaco: monaco});
+            exhibition.addEditor(editor);
+        }
+    });
+
+    // Now that all editors are available, let's initialize everything.
+    // Note that we wait for the initialization to finish before updating the preview.
+    // Otherwise, required data might be not available on preview update.
+    await exhibition.initialize();
+
+    // Now that editors are initialized, refresh the preview.
+    await exhibition.updatePreview();
+}
+

@@ -1,0 +1,34 @@
+import loader from "{{MONACO_LOADER_URL}}";
+import { Exhibition, type ExhibitionMonacoEditorOptions } from "{{EXHIBITIONJS_URL_ESM}}";
+
+loader.config({
+  paths: {
+    vs: '{{MONACO_VS_URL}}'
+  },
+});
+
+const monaco = await loader.init();
+
+const defaultMonacoOptions: ExhibitionMonacoEditorOptions["monacoEditorOptions"] = {
+  value: "",
+  minimap: {
+    enabled: false,
+  },
+  scrollBeyondLastLine: false,
+  automaticLayout: true,
+};
+
+Exhibition.createMultiple(document.body,
+  Exhibition.getMap(
+    {
+      configuration: {
+        editors: {
+          options: {
+            monacoEditorOptions: defaultMonacoOptions,
+            monaco: monaco,
+          }
+        },
+      },
+    }
+  ),
+);

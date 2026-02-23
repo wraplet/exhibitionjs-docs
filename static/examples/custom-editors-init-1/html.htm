@@ -1,0 +1,73 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<div data-js-exhibition class="p-4">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Preview</h4>
+                </div>
+                <div class="card-body p-0">
+                    <iframe data-js-exhibition-preview class="w-100 rounded"
+                            style="border: 1px solid #dee2e6;display: block;"></iframe>
+                </div>
+            </div>
+            <div class="mb-4">
+                <button data-js-exhibition-updater class="btn btn-success">Update</button>
+            </div>
+        </div>
+    </div>
+    <div class="mb-4">
+        <div class="row">
+            <div class="col-12 pb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">HTML</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <!--
+                          This time we are a bit more clever and store the default HTML value of our HTML editor
+                          in a dedicated element, so it's a bit more readable than storing it in a
+                          "data-js-options" attribute.
+
+                          However, this is still not the best practice because, and that's a fun fact: you cannot
+                          store arbitrary HTML, to be used as a raw string, anywhere in an HTML document
+                          (unless you will encode HTML entities, but that may make it unusable "raw").
+
+                          In this case if there is a </script> closing tag inside – it would break the HTML.
+
+                          If you want to store the HTML value for your HTML editor reliably, then
+                          your best bet is to store it in a separate file. and fetch its content with
+                          JS. But this is just an example, so it will do for now.
+                        -->
+                        <div data-js-exhibition-editor data-js-value-selector="#id-8c0f9e8b-2956-4323-aefb-8625e990fe8d" data-js-options='{"monacoEditorOptions": {"language": "html"}, "priority": 1}' style="height: 100px;resize: vertical;overflow: auto;"></div>
+                        <script type="text/plain" id="id-8c0f9e8b-2956-4323-aefb-8625e990fe8d">
+                            <div id="container"></div>
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 pb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">TypeScript</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <!--
+                          Similarly to the above. Note that we set 'type="text/plain"' so the script will not
+                          get executed in the parent document and only in the preview iframe after
+                          it will get injected there.
+
+                          Here it's just temporarily stored before the injection.
+                        -->
+                        <div data-js-exhibition-editor data-js-value-selector="#id-073f3658-b04d-4bfe-b1e0-418df1c74f1d" data-js-options='{"monacoEditorOptions": {"language": "typescript"}, "priority": 0}'  style="height: 100px;resize: vertical;overflow: auto;"></div>
+                        <script type="text/plain" id="id-073f3658-b04d-4bfe-b1e0-418df1c74f1d">
+                            const element: HTMLDivElement = document.getElementById("container");
+                            element.innerHTML = "<h1>Hello world</h1>";
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- We no longer have to import loader here. -->
+<!-- "data-js-exhibition" attribute makes this tree structure an Exhibition. It will be wrapped by an Exhibition instance on `Exhibition.createMultiple`. -->
+<div data-js-exhibition class="p-4">
+    <div class="row">
+        <div class="col">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Preview</h4>
+                </div>
+                <div class="card-body p-0">
+                    <!-- "data-js-exhibition-preview" attribute makes this iframe managed by the Exhibition instance as an ExhibitionPreview. -->
+                    <iframe data-js-exhibition-preview class="w-100 rounded" style="border: 1px solid #dee2e6;display: block;"></iframe>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="form-text mb-2">This example doesn't update automatically. Click this button to update the preview based on the content of the editors.</div>
+                <!-- "data-js-exhibition-updater" attribute makes this button update ExhibitionPreview. -->
+                <button data-js-exhibition-updater class="btn btn-success">Update</button>
+            </div>
+        </div>
+    </div>
+    <div class="mb-4">
+        <div class="row">
+            <div class="col-12 pb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">HTML</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div data-js-exhibition-editor data-js-options='{"monacoEditorOptions": {"language": "html", "value": "<div id=\"container\" class=\"example-bg\"></div>"}, "priority": 2}' style="height: 100px;resize: vertical;overflow: auto;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 pb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">CSS</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div data-js-exhibition-editor data-js-options='{"monacoEditorOptions": {"language": "css", "value": ".example-bg {\n  background-color: lightblue;\n}"}, "priority": 1, "location": "head"}'  style="height: 100px;resize: vertical;overflow: auto;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 pb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">TypeScript</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div data-js-exhibition-editor data-js-options='{"monacoEditorOptions": {"language": "typescript", "value": "const element: HTMLDivElement = document.getElementById(\"container\");\nelement.innerHTML = \"<h1>Hello world</h1>\";"}, "priority": 0}'  style="height: 100px;resize: vertical;overflow: auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

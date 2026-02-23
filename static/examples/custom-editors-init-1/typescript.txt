@@ -1,0 +1,63 @@
+import loader from "{{MONACO_LOADER_URL}}";
+import { Exhibition, ExhibitionMonacoEditor, type ExhibitionMonacoEditorOptions } from "{{EXHIBITIONJS_URL_ESM}}";
+
+loader.config({
+  paths: {
+    vs: '{{MONACO_VS_URL}}'
+  },
+});
+
+const monaco = await loader.init();
+
+// These are the options of the monaco editor that will be applied for all editors of this
+// exhibition, unless overriden on the editor level.
+const defaultMonacoEditorOptions = {
+    minimap: {
+        enabled: false,
+    },
+    scrollBeyondLastLine: false,
+    automaticLayout: true,
+};
+
+await Exhibition.createMultiple(document.body,
+    Exhibition.getMap(
+        {
+            configuration: {
+                editors: {
+                    options: {
+                        monacoEditorOptions: defaultMonacoEditorOptions,
+                        monaco: monaco,
+                        /*
+                         * Instead of instantiating the whole ExhibitionMonacoEditor class, we can provide
+                         * the `monacoEditorCreator` callback that will be used to create the monaco-editor
+                         * instance for each editor. That way we can get away with less code.
+                         */
+                        monacoEditorCreator: async (options, element, monaco) => {
+                            const value = { value: "" };
+                            // Pull the default value from the referenced element.
+                            const valueSelector = element.getAttribute("data-js-value-selector");
+                            const valueElement = document.querySelector<HTMLTemplateElement>(valueSelector);
+                            // Because we are responsible for the created editor and its value, we need to
+                            // manually trim the value. Fortunately, ExhibitionMonacoEditor provides a helper
+                            // method for that.
+                            value.value = ExhibitionMonacoEditor.trimDefaultValue(valueElement.textContent);
+
+                            // We are merging our value with existing options provided to the callback.
+                            // Note that these are the monaco-editor options, not the ExhibitionMonacoEditor's ones.
+                            return ExhibitionMonacoEditor.createMonacoEditor({ ...options, ...value }, element, monaco);
+                        },
+                    }
+                },
+            },
+        },
+    ),
+    // This time we won't be passing any ExhibitionOptions.
+    {},
+    {
+        // Initialize editors.
+        init: true,
+        // Update preview.
+        updatePreview: true,
+    },
+);
+

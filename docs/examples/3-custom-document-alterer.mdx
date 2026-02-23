@@ -1,0 +1,27 @@
+---
+id: example-custom-document-alterer
+title: Custom document alterer
+slug: /examples/custom-document-alterer
+sidebar_position: 3
+---
+
+This example shows how to forgo editors entirely and modify the preview document via your own `DocumentAlterer` function.
+
+### Live demo
+
+import BrowserOnly from "@docusaurus/BrowserOnly";
+
+<BrowserOnly>
+    {() => {
+        const ExhibitionExample = require("@site/src/components/ExhibitionExample").default;
+        const MonacoEditor = require("@site/src/components/MonacoEditor").default;
+        return (
+            <ExhibitionExample>
+                #### HTML
+                <MonacoEditor contentUrl="/examples/custom-document-alterer/html.htm" language="html" />
+                #### TypeScript
+                <MonacoEditor contentUrl="/examples/custom-document-alterer/typescript.txt" language="typescript" />
+            </ExhibitionExample>
+        );
+    }}
+</BrowserOnly>

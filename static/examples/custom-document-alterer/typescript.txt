@@ -1,0 +1,18 @@
+// In this case we don't need monaco-editor.
+
+import { Exhibition } from "{{EXHIBITIONJS_URL_ESM}}";
+
+
+const exhibitions = await Exhibition.createMultiple(document.body,
+    // Because we don't intend to initialize any editors, we will defer their initialization indefinitely.
+    Exhibition.getMap({ deferEditors: true }),
+    {},
+);
+
+for (const exhibition of exhibitions) {
+    // Register custom document alterer.
+    exhibition.getPreview().addDocumentAlterer(async (document: Document) => {
+        document.body.innerHTML += "<div>Hello World</div>";
+    });
+    exhibition.updatePreview();
+}
