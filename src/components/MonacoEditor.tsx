@@ -11,11 +11,11 @@ interface Props {
 }
 
 export default class MonacoEditor extends React.Component<Props> {
-  public EXHIBITIONJS_VERSION = "1.0.0-beta.1";
+  public EXHIBITIONJS_VERSION = "1.0.0-beta.4";
   private MONACO_VS_URL = "https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/vs";
   private MONACO_LOADER_BASE_URL = "https://cdn.jsdelivr.net/npm/@monaco-editor/loader@1.7.0/";
   private MONACO_LOADER_URL = `${this.MONACO_LOADER_BASE_URL}+esm`;
-  private DECLARATIONS_WRAPLET_VERSION = "1.0.0-beta.1";
+  private DECLARATIONS_WRAPLET_VERSION = "1.0.0-beta.2";
 
   private myRef: RefObject<HTMLDivElement | null> = createRef();
   private editor?: ExhibitionMonacoEditor;
@@ -133,28 +133,19 @@ export default class MonacoEditor extends React.Component<Props> {
     await loadTypeDeclarations("declare const require : any", "ts:monaco.required.d.ts")
     await loadTypeDeclarations("declare const monaco : any", "ts:monaco.monaco.d.ts")
 
-    const files = [
-      "types/DocumentAlterer.d.ts",
-      "types/DocumentAltererProvider.d.ts",
-      "types/DocumentAltererProviderWraplet.d.ts",
-      "types/PreviewValue.d.ts",
-      "Exhibition.d.ts",
-      "ExhibitionPreview.d.ts",
-      "ExhibitionMonacoEditor.d.ts",
-      "selectors.d.ts",
-      "TypeMap.d.ts",
-    ];
-
-    // Load Exhibition's type declarations.
-    await loadTypeDeclarationsFromFiles(this.getExhibitionJSLibURLDir(), files, "ts:exhibition.d.ts");
-
     const wrapletFiles = [
-      "AbstractWraplet.d.ts",
-      "Wraplet/types/Wraplet.d.ts",
+      "ambient.d.ts",
     ];
 
     // Load wraplet's type declarations.'
     await loadTypeDeclarationsFromFiles(this.getWrapletLibUrl(), wrapletFiles, "ts:wraplet.d.ts");
+
+    const files = [
+      "ambient.d.ts",
+    ];
+
+    // Load Exhibition's type declarations.
+    await loadTypeDeclarationsFromFiles(this.getExhibitionJSLibURLDir(), files, "ts:exhibition.d.ts");
 
     // Load @monaco-editor/loader type declarations.
     await loadTypeDeclarationsFromFiles(`${this.MONACO_LOADER_BASE_URL}`, ["lib/types.d.ts"], "ts:monaco-editor-loader.d.ts");
