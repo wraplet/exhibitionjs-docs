@@ -104,7 +104,7 @@ export default class MonacoEditor extends React.Component<Props> {
         ref={this.myRef}
         data-js-exhibition-editor
         className="bordered margin-bottom--lg"
-        style={{height: "500px", resize: "vertical", overflow: "auto"}}
+        style={{height: "500px", resize: "vertical"}}
       ></div>
     );
   }
