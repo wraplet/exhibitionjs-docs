@@ -9,21 +9,6 @@ sidebar_position: 3
 
 `exhibitionjs` can be configured using both data attributes on HTML elements and options passed during initialization.
 
-## Exhibition Options
-
-These options apply to the `Exhibition` instance and can be set via the `data-js-options` attribute on the main exhibition element.
-
-| Option             | Type | Default | Description                                                              |
-|--------------------| --- | --- |--------------------------------------------------------------------------|
-| `updaterSelector` | `string` | `[data-js-exhibition-updater]` | Selector for the element(s) that triggers a preview update when clicked. |
-
-**Example:**
-```html
-<div data-js-exhibition data-js-options='{"updaterSelector": ".my-custom-button"}'>
-    <!-- ... -->
-</div>
-```
-
 ## Editor Options (`ExhibitionMonacoEditor`)
 
 These options apply to each code editor and can be set via the `data-js-options` attribute.
@@ -40,7 +25,7 @@ These options apply to each code editor and can be set via the `data-js-options`
 
 **Example:**
 ```html
-<div data-js-exhibition-editor
+<div data-js-exhibition__editor
      data-js-options='{
        "monacoEditorOptions": {"language": "typescript"},
        "priority": 10,

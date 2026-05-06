@@ -79,7 +79,7 @@ export default class ExhibitionExample extends React.Component<Props, State> {
         </MonacoEditorRegistryContext.Provider>
         <ExampleModal title={title} onClick={() => this.exhibition?.updatePreview()}>
           <iframe
-            data-js-exhibition-preview
+            data-js-exhibition__preview
             className="w-100 rounded"
             style={{display: "block", minHeight: "200px", height: "calc(100% - 40px)"}}
           ></iframe>

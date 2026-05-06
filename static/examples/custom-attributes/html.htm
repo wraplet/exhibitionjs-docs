@@ -8,11 +8,11 @@
                     <h4 class="card-title mb-0">Preview</h4>
                 </div>
                 <div class="card-body p-0">
-                    <iframe data-js-exhibition-preview class="w-100 rounded" style="border: 1px solid #dee2e6;display: block;"></iframe>
+                    <iframe data-js-exhibition__preview class="w-100 rounded" style="border: 1px solid #dee2e6;display: block;"></iframe>
                 </div>
             </div>
             <div class="mb-4">
-                <button data-js-exhibition-updater class="btn btn-success">Update</button>
+                <button data-js-exhibition__updater class="btn btn-success">Update</button>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
                         <h4 class="card-title mb-0">HTML</h4>
                     </div>
                     <div class="card-body p-0">
-                        <div data-js-exhibition-editor data-js-options='{"monacoEditorOptions": {"language": "html", "value": "<div id=\"container\"></div>"}, "priority": 2}' style="height: 100px;resize: vertical;overflow: auto;"></div>
+                        <div data-js-exhibition__editor data-js-options='{"monacoEditorOptions": {"language": "html", "value": "<div id=\"container\"></div>"}, "priority": 2}' style="height: 100px;resize: vertical;overflow: auto;"></div>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                           type="module" on the script tag. To add custom attributes, just add the
                           "tagAttributes" option. It works for ts/js/css editor languages.
                         -->
-                        <div data-js-exhibition-editor data-js-options='{"monacoEditorOptions": {"language": "typescript", "value": "const element: HTMLDivElement = document.getElementById(\"container\");\nconst scriptElement: HTMLScriptElement = document.getElementsByTagName(\"script\")[0];\nelement.innerHTML = \"<h1>\\\"script\\\" tag appended to this document has type=\\\"\" + scriptElement.getAttribute(\"type\") + \"\\\"!</h1>\";"}, "priority": 0, "tagAttributes": {"type": "module"}}'  style="height: 100px;resize: vertical;overflow: auto;"></div>
+                        <div data-js-exhibition__editor data-js-options='{"monacoEditorOptions": {"language": "typescript", "value": "const element: HTMLDivElement = document.getElementById(\"container\");\nconst scriptElement: HTMLScriptElement = document.getElementsByTagName(\"script\")[0];\nelement.innerHTML = \"<h1>\\\"script\\\" tag appended to this document has type=\\\"\" + scriptElement.getAttribute(\"type\") + \"\\\"!</h1>\";"}, "priority": 0, "tagAttributes": {"type": "module"}}'  style="height: 100px;resize: vertical;overflow: auto;"></div>
                     </div>
                 </div>
             </div>

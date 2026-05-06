@@ -22,8 +22,9 @@ const exhibitions = await Exhibition.createMultiple(document.body,
     Exhibition.getMap(
         {
             // Don't select editors automatically because we want to customize their initialization.
-            // Another way of achieving this would be to modify the map by removing the "selector" property.
-            // This is just a handy shortcut through the map options that simplify some common use cases.
+            // Another way of achieving this would be to modify the map by removing the "selector"
+            // property. This is just a handy shortcut through the map options that simplify
+            // some common use cases.
             deferEditors: true,
         },
     ),
@@ -34,32 +35,31 @@ const exhibitions = await Exhibition.createMultiple(document.body,
     },
 );
 
-for (const exhibition of exhibitions) {
-    /*
-     * Initialize editors manually, so we can pull the default values.
-     * First, find all editors among the descendants of the Exhibition-wrapped element.
-     * We can access the wrapped element through the Wraplet API's "accessNode" method.
-    */
-    exhibition.wraplet.accessNode(async (node) => {
-        const editorsElements = node.querySelectorAll<HTMLElement>("[data-js-exhibition-editor]");
-        for (const editorElement of editorsElements) {
-            const value = { value: "" };
-            // Pull the default value from the referenced element.
-            const valueSelector = editorElement.getAttribute("data-js-value-selector");
-            const valueElement = document.querySelector<HTMLScriptElement>(valueSelector);
-            value.value = valueElement.textContent;
+const exhibition = exhibitions[0];
+const editorsElements = document.querySelectorAll<HTMLElement>("[data-js-exhibition__editor]");
+/*
+ * Initialize editors manually, so we can pull the default values.
+ * First, find all editors among the descendants of the Exhibition-wrapped element.
+ * We can access the wrapped element through the Wraplet API's "accessNode" method.
+ */
+for (const editorElement of editorsElements) {
+    const value = { value: "" };
+    // Pull the default value from the referenced element.
+    const valueSelector = editorElement.getAttribute("data-js-value-selector");
+    const valueElement = document.querySelector<HTMLScriptElement>(valueSelector);
+    value.value = valueElement.textContent;
 
-            const editor = ExhibitionMonacoEditor.create(editorElement, { monacoEditorOptions: { ...defaultMonacoEditorOptions, ...value }, monaco: monaco});
-            exhibition.addEditor(editor);
-        }
-    });
-
-    // Now that all editors are available, let's initialize everything.
-    // Note that we wait for the initialization to finish before updating the preview.
-    // Otherwise, required data might be not available on preview update.
-    await exhibition.initialize();
-
-    // Now that editors are initialized, refresh the preview.
-    await exhibition.updatePreview();
+    const editor = ExhibitionMonacoEditor.create(
+        editorElement,
+        { monacoEditorOptions: { ...defaultMonacoEditorOptions, ...value }, monaco: monaco}
+    );
+    exhibition.addEditor(editor);
 }
 
+// Now that all editors are available, let's initialize everything.
+// Note that we wait for the initialization to finish before updating the preview.
+// Otherwise, required data might be not available on preview update.
+await exhibition.initialize();
+
+// Now that editors are initialized, refresh the preview.
+await exhibition.updatePreview();

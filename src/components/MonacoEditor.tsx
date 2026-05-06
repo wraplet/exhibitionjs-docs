@@ -11,11 +11,11 @@ interface Props {
 }
 
 export default class MonacoEditor extends React.Component<Props> {
-  public EXHIBITIONJS_VERSION = "1.0.0-beta.4";
+  public EXHIBITIONJS_VERSION = "1.0.0-beta.17";
   private MONACO_VS_URL = "https://cdn.jsdelivr.net/npm/monaco-editor@0.55.1/min/vs";
   private MONACO_LOADER_BASE_URL = "https://cdn.jsdelivr.net/npm/@monaco-editor/loader@1.7.0/";
   private MONACO_LOADER_URL = `${this.MONACO_LOADER_BASE_URL}+esm`;
-  private DECLARATIONS_WRAPLET_VERSION = "1.0.0-beta.2";
+  private DECLARATIONS_WRAPLET_VERSION = "1.0.0-beta.21";
 
   private myRef: RefObject<HTMLDivElement | null> = createRef();
   private editor?: ExhibitionMonacoEditor;
@@ -102,7 +102,7 @@ export default class MonacoEditor extends React.Component<Props> {
     return (
       <div
         ref={this.myRef}
-        data-js-exhibition-editor
+        data-js-exhibition__editor
         className="bordered margin-bottom--lg"
         style={{height: "500px", resize: "vertical"}}
       ></div>

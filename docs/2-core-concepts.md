@@ -23,6 +23,7 @@ classDiagram
         +hasEditor(...): ...
         +getPreview(): ...
         +updatePreview(): ...
+        +replacePreview(...): ...
     }
     
     class ExhibitionMonacoEditor {
@@ -60,6 +61,7 @@ classDiagram
         +hasEditor(editor): boolean
         +getPreview(): PreviewWraplet
         +updatePreview(): Promise~void~
+        +replacePreview(preview): void
     }
 ```
 
